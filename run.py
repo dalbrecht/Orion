@@ -1,4 +1,4 @@
-from bottle import route, run, response
+from bottle import route, run, static_file
 
 import igraph
 import cairo
@@ -18,13 +18,16 @@ def orion():
 
     tempFileObj = NamedTemporaryFile(mode='w+b', suffix='svg')
     renderSurface = cairo.SVGSurface(tempFileObj, 480, 640)
-    renderContext = cairo.Context(renderSurface)
+    # renderContext = cairo.Context(renderSurface)
 
-    constellation.plot(renderContext)
+    #igraph.plot(constellation, target=renderSurface, layout=layout)
+    igraph.plot(constellation, target="tmp/img.png", layout=layout)
 
-    constellation.plot(layout=layout)
-    response.content_type = "image/svg+xml"
-    return tempFileObj
+    #igraph.plot(layout=layout)
+    #response.content_type = "image/svg+xml"
+    #return tempFileObj
+
+    return static_file("tmp/img.png")
 
 if __name__ == "__main__":
     run(host='localhost', port=8080, debug=True)
