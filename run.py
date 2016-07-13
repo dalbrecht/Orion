@@ -12,7 +12,7 @@ def orion():
     constellation.add_edges([(0, 1), (1, 2), (2, 3), (3, 4), (4, 5), (5, 0)])
     # draw belt
     constellation.add_edges([(3, 6), (6, 7), (7, 5)])
-
+    # Orion will be fat and may not be right side up
     layout = constellation.layout("kamada_kawai")
 
     igraph.plot(constellation, target="img.png", layout=layout)
